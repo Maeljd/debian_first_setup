@@ -1,0 +1,3 @@
+# Please see documentation https://manpages.debian.org/experimental/nullmailer/remotes.5.en.html
+# Exemple:
+# smtp.gmail.com smtp --port=587 --auth-login --user=${GMAIL_ADDRESS} --pass=${GMAIL_PASSWORD} --starttls

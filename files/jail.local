@@ -1,0 +1,29 @@
+[DEFAULT]
+
+ignorself = true
+ignoreip = 127.0.0.1/8 
+
+# "bantime" is the number of seconds that a host is banned.
+bantime  = 1d
+
+# A host is banned if it has generated "maxretry" during the last "findtime"
+findtime  = 1d
+
+# "maxretry" is the number of failures before a host get banned.
+maxretry = 2
+
+destemail =mail@domain.tld
+mta = mail
+
+[sshd]
+
+# To use more aggressive sshd modes set filter parameter "mode" in jail.local:
+# normal (default), ddos, extra or aggressive (combines all).
+# See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details.
+enabled = true
+mode   = aggressive
+port    = ssh
+logpath = %(sshd_log)s
+backend = %(sshd_backend)s
+banaction = iptables-allports
+protocol = all

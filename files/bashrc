@@ -1,0 +1,33 @@
+# Prompt color
+
+if [ $USER = root ]
+  then
+    PS1="\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;33m\]\h\[\e[0m\]\[\e[01;33m\]:\[\e[0m\]\[\e[00;36m\]\w\[\e[0m\]\[\e[01;33m\]\\$\[\e[0m\]"
+  else
+    PS1="\[\e[01;32m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;33m\]\h\[\e[0m\]\[\e[01;33m\]:\[\e[0m\]\[\e[00;36m\]\w\[\e[0m\]\[\e[01;33m\]\\$\[\e[0m\]"
+fi
+
+# enable color support of ls and also add handy aliases
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+ alias cls='clear'
+ alias ll='ls -al'
+ alias su='su -'
+
+if ! shopt -oq posix; then
+   if [ -f /usr/share/bash-completion/bash_completion ]; then
+     . /usr/share/bash-completion/bash_completion
+   elif [ -f /etc/bash_completion ]; then
+     . /etc/bash_completion
+  fi
+fi
