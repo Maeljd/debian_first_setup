@@ -203,7 +203,19 @@ function main(){
     cleaning
 
     echo "########################################################################"
-    echo " Setup done. Please reboot"
+    echo "                            Setup done."
+    echo ""
+    echo "  - Monitorix: Firewall is not open for it"
+    echo "               for more security you can use ssh port forwarding"
+    echo "    Exemple:"
+    echo "      ssh -L 8080:localhost:8080 user@myserver.domain.tld"
+    echo "      And browse to http://localhost:8080"
+    echo ""
+    echo "  - Nullmailer: Quick test"
+    echo "      echo \"My message\" | mail -s \"My subject\" mail@domain.tld"
+    echo ""
+    echo "  /!\  To applied everything propely please reboot your server  /!\ "
+    echo "########################################################################"
 
   elif [ $DEBUG == "true" ]; then
     debug
