@@ -24,7 +24,7 @@ A simple script for a quick debian postinstall setup
 ```bash
 apt install git -y
 cd /tmp
-git clone https://maelj@gitlab.com/maelj/debian_first_setup.git
+git clone https://gitlab.com/maelj/debian_first_setup.git
 cd debian_first_setup
 ```
 
