@@ -17,6 +17,8 @@ A simple script for a quick debian postinstall setup
   - Unnatended_upgrades  
   - Monitorix  
 
+NB: Defaults choices will install all of above softwares  
+
 # Usage
 
 ## Clone the repo
