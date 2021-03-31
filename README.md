@@ -76,7 +76,7 @@ Drop everything exept:
 
 ## Start setup.sh
 
-As root you now launch setup.sh.  
+As root you can now launch setup.sh.  
 ```bash
 bash setup.sh
 ```
