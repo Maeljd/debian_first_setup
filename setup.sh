@@ -17,6 +17,12 @@ if ! [ $(id -nu) == "root" ]; then
   exit 1
 fi
 
+if [ "$(lsb_release -is)" != "Debian" ] && [ "$(lsb_release -rs)" != "10" ]
+  then
+    echo "Oops ! This script was tested on Debian10 only."
+    exit 1
+fi
+
 function main(){
   while [[ -z $SRV_HOSTNAME ]]; do
     echo "---"
