@@ -102,6 +102,12 @@ function main(){
     BASHRC_TO_COPY=${BASHRC_TO_COPY:-"./files/bashrc"}
   done
 
+  while [[ -z $VIMRC_TO_COPY || ! -f $VIMRC_TO_COPY ]]; do
+    echo "---"
+    read -p "Path to bashrc [./files/vimrc]: " VIMRC_TO_COPY
+    VIMRC_TO_COPY=${VIMRC_TO_COPY:-"./files/vimrc"}
+  done
+
   while [[ -z $SOURCES_LIST_TO_COPY || ! -f $SOURCES_LIST_TO_COPY ]]; do
     echo "---"
     read -p "Path to sources.list [./files/sources.list]: " SOURCES_LIST_TO_COPY
@@ -268,6 +274,7 @@ function debug() {
   echo "SSH PermitRootLogin           : $SSH_ROOT"
   echo "SSH keys to copy              : $SSH_KEYS_TO_COPY"
   echo "Bashrc to copy                : $BASHRC_TO_COPY"
+  echo "Vimrc to copy                 : $VIMC_TO_COPY"
   echo "Sources_list to copy          : $SOURCES_LIST_TO_COPY"
   echo "Path to packages.list         : $PACKAGES_LIST"
   echo "Install NTP ?                 : $INSTALL_NTP"
@@ -451,6 +458,12 @@ function setup_users() {
       || msg warn "Line: $LINENO"
   done
   source /root/.bashrc
+
+  for e in "/root/.vimrc" "/home/$USER_TO_CREATE/.vimrc"; do
+    cp $VIMRC_TO_COPY $e \
+      && msg ok "Copy $VIMRC_TO_COPY to $e" \
+      || msg warn "Line: $LINENO"
+  done
 
   if [ ! -d "/home/$USER_TO_CREATE/.ssh" ]; then
     mkdir -m 0700 "/home/$USER_TO_CREATE/.ssh"

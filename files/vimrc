@@ -1,0 +1,6 @@
+"set mouse-=a
+
+set nu
+set rnu
+syntax on
+colorscheme pablo
