@@ -26,7 +26,7 @@ NB: Defaults choices will install all of above softwares
 ```bash
 apt install git -y
 cd /tmp
-git clone https://gitlab.com/maelj/debian_first_setup.git
+git clone https://gitlab.com/snax44/debian_first_setup.git
 cd debian_first_setup
 ```
 
