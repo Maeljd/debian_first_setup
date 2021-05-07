@@ -126,6 +126,12 @@ function main(){
     PACKAGES_LIST=${PACKAGES_LIST:-"./files/packages.list"}
   done
 
+  while ! [[ "$DISABLE_IPV6" =~ ^(y|n)$ ]]; do
+    echo "---"
+    read -p "Do you want to disable IPV6 ? [Y/n]: " DISABLE_IPV6
+    DISABLE_IPV6=${DISABLE_IPV6:-y}
+  done
+
   while ! [[ "$INSTALL_NTP" =~ ^(y|n)$ ]]; do
     echo "---"
     read -p "Do you want to install NTP ? [Y/n]: " INSTALL_NTP
@@ -235,6 +241,7 @@ function main(){
 
     setup_system
     setup_users
+    if [ $DISABLE_IPV6 == "y" ]; then diable_ipv6; fi
     if [ $INSTALL_NTP == "y" ]; then setup_ntp; fi
     if [ $INSTALL_IPTABLES == "y" ]; then setup_iptables; fi
     if [ $INSTALL_FAIL2BAN == "y" ]; then setup_fail2ban; fi
@@ -283,6 +290,7 @@ function debug() {
   echo "Vimrc to copy                 : $VIMC_TO_COPY"
   echo "Sources_list to copy          : $SOURCES_LIST_TO_COPY"
   echo "Path to packages.list         : $PACKAGES_LIST"
+  echo "Disable IPV6 ?                 : $DISABLE_IPV6"
   echo "Install NTP ?                 : $INSTALL_NTP"
   echo "Path to ntp.conf              : $NTP_CONF"
   echo "Install iptables              : $INSTALL_IPTABLES"
@@ -367,6 +375,31 @@ function setup_ntp() {
   apt -qq install ntp -y
   cp $NTP_CONF /etc/ntp.conf \
     && msg ok "/etc/ntp.conf" \
+    || msg warn "Line: $LINENO"
+}
+
+function disable_ipv6() {
+  echo "########################################################################"
+  echo "                            Disable IPV6"
+  echo "########################################################################"
+  PARAMETERS=(
+  "net.ipv6.conf.all.disable_ipv6=1"
+  "net.ipv6.conf.default.disable_ipv6=1"
+  "net.ipv6.conf.lo.disable_ipv6=1"
+  )
+
+  local SYSCTL_FILE="/etc/sysctl.conf"
+
+  for e in "${PARAMETERS[@]}"; do
+    if grep -q "#"$e $SYSCTL_FILE; then
+      sed -i "s/#$e/$e/" $SYSCTL_FILE
+    elif ! grep -q $e $SYSCTL_FILE; then
+      echo "$e" >> $SYSCTL_FILE
+    fi
+  done
+
+  sysctl -p \
+    && msg ok "$SYSCTL_FILE" \
     || msg warn "Line: $LINENO"
 }
 
