@@ -37,7 +37,7 @@ function main(){
   while ! [[ $SRV_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; do
     echo "---"
     read -p "Server IP ? [$PUBLIC_IP]: " SRV_IP
-    SRV_IP=${SRV_IP:-$PUBLIC_IP)}
+    SRV_IP=${SRV_IP:-$PUBLIC_IP}
   done
 
   while [[ -z $ROOT_PASSWORD ]]; do
